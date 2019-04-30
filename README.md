@@ -54,7 +54,7 @@ After passing the image through the U-Net, a loss is computed based on the “pe
 
 | ![whoops7](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img7.png) | 
 |:--:| 
-|  |
+| *Loss Function* |
 
 
 Symbol meanings:
@@ -76,6 +76,7 @@ When only minimizing the minimum loss image, we got results like this (first ima
 
 | ![whoops8](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img8.png) | 
 |:--:| 
+| * * |
 
 As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an implementation of [4], where the loss is a weighted sum between the mean collection image loss and the min:
 ~~~~
@@ -89,6 +90,7 @@ We also encountered a strange situation where many of our images had a sepia-ton
 
 | ![whoops9](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img9.png) | 
 |:--:| 
+| * * |
 
 We adjusted our loss function slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
 
@@ -102,6 +104,7 @@ The loss progression was as follows:
 
 | ![whoops10](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img10.png) |
 |:--:| 
+| *Training Loss* |
 
 ## Final result
 Compare our final results with some of the worse GAN results
@@ -114,5 +117,6 @@ We’ve made strides towards accomplishing this. We began by extracting and visu
 
 | ![img11.png](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img11.png) |
 |:--:|
+| *Activations of conv layers* |
 
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
