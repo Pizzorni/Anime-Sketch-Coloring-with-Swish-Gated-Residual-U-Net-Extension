@@ -1,4 +1,4 @@
-# Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension
+# Anime Sketch Coloring with Swish Gated Residual U Net
 
 ## Introduction/Background
 Imagine this:
@@ -110,5 +110,8 @@ Talk about clean-cut-edges and vibrantness
 Dealing with users is almost always the biggest challenge a project faces. Our target demographic includes mangaka and Manga/Anime enthusiasts, some of the most demanding and particular individuals. We decided it would be wise to allow the user some control over how the images get colored. Our intent was to allow for some interactive coloring after the initial automatic coloring, while still utilizing our network.
 
 We’ve made strides towards accomplishing this. We began by extracting and visualizing the activations for a particular image, and very quickly learned why neural networks are called black boxes. We could initially, sort of, understand the kinds of features that were being extracted. However, as we went deeper in to the network, it very quickly devolved into meaningless pixels.
+
+| ![img11.png](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img11.png) |
+|:--:|
 
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
