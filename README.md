@@ -24,6 +24,10 @@ We set out to produce an open-source implementation of this paper and attempt to
 |:--:| 
 | *Results from original paper [3]* |
 
+<p align="center">
+  <img src="(https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png">
+</p>
+
 ## Network Architecture
 The model is based on an U-net architecture. Typically in image-to-image tasks, it is often necessary to encode the image and then apply some non-linear transformations to the encoding. Then, we decode the this result back to an image. This is done with deconvolutions, but images generated this way are often blurry because of loss of information in the encoding process. U-nets fix this by utilizing skip-layers that directly transfer feature maps from each encoder level to its symmetric decoder level (this also means that the resolution of those feature maps must be the same). An example of a U-net can be seen in the figure below (from [3]).
 
