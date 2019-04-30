@@ -27,8 +27,8 @@ We set out to produce an open-source implementation of this paper and attempt to
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png">
+   <figcaption>Results from Original Paper [3]</figcaption>
   </p>
-  <figcaption>Results from Original Paper [3]</figcaption>
 </figure> 
 
 
