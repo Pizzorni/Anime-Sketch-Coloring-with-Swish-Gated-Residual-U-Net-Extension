@@ -54,6 +54,7 @@ After passing the image through the U-Net, a loss is computed based on the “pe
 
 | ![whoops7](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img7.png) | 
 |:--:| 
+|  |
 
 
 Symbol meanings:
