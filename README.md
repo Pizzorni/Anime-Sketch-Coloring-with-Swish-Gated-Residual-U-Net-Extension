@@ -1,7 +1,3 @@
----
-title: Anime Sketch Coloring with Swish Gated Residual U-Nets + Extension
----
-
 # Anime Sketch Coloring with Swish Gated Residual U Net
 
 ## Introduction/Background
