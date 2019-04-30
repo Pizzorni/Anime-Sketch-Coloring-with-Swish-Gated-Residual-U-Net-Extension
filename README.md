@@ -18,7 +18,7 @@ We looked for an anime colorization approach to implement that is state-of-the-a
 |:--:| 
 | *Comparison image from original paper[3]. Image sources from left to right: Sketch, Paintschainer, Style2Paints, SGRU* |
 
-We set out to produce an open-source implementation of this paper and attempt to reproduce their results.
+We set out to produce an open-source implementation of this paper and attempt to reproduce their results. Our implementation is on github and can be found [here](https://github.com/pradeeplam/Anime-Sketch-Coloring-with-Swish-Gated-Residual-UNet).
 
 | ![whoops2](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png) | 
 |:--:| 
