@@ -99,7 +99,8 @@ The network took roughly 2 days to train on a server with a 3 GHz Xeon Gold 6154
 
 The loss progression was as follows:
 
-| ![whoops10](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img10.png) | 
+| ![whoops10](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img10.png) |
+|:--:| 
 
 ## Final result
 Compare our final results with some of the worse GAN results
