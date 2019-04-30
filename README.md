@@ -59,6 +59,6 @@ After passing the image through the U-Net, a loss is computed based on the “pe
 Symbol meanings:
 * T<sup>u</sup> = *u*th image in output collection
 * C = RGB ground truth image
-* &psi <sup>j</sup><sub>l</sub>
+* &psi;<sup>j</sup> <sub>l</sub>
 * S<sup>l</sup>
-* &lambda = Weight for *l*th layer loss
+* &lambda; = Weight for *l*th layer loss
