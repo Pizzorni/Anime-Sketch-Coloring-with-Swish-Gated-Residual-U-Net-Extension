@@ -76,7 +76,7 @@ When only minimizing the minimum loss image, we got results like this (first ima
 
 | ![whoops8](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img8.png) | 
 |:--:| 
-| * * |
+|  |
 
 As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an implementation of [4], where the loss is a weighted sum between the mean collection image loss and the min:
 ~~~~
@@ -90,7 +90,7 @@ We also encountered a strange situation where many of our images had a sepia-ton
 
 | ![whoops9](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img9.png) | 
 |:--:| 
-| * * |
+|  |
 
 We adjusted our loss function slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
 
