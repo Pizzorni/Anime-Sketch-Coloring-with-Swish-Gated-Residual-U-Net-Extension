@@ -54,11 +54,11 @@ After passing the image through the U-Net, a loss is computed based on the “pe
 
 | ![whoops7](https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img7.png) | 
 |:--:| 
-| ** |
+|  |
 
 Symbol meanings:
 * T<sup>u</sup> = *u*th image in output collection
 * C = RGB ground truth image
-* &psi;<sup>j</sup> <sub>l</sub>
+* &phi;<sup>j</sup> <sub>l</sub>
 * S<sup>l</sup>
-* &lambda; = Weight for *l*th layer loss
+* &lambda;<sub>l</sub> = Weight for *l*th layer loss
