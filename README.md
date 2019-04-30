@@ -25,7 +25,7 @@ We set out to produce an open-source implementation of this paper and attempt to
 | *Results from original paper [3]* |
 
 <p align="center">
-  <img src="(https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png">
+  <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png">
 </p>
 
 ## Network Architecture
