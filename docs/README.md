@@ -131,17 +131,17 @@ The loss progression was as follows:
 ## Final result
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img12.png">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img12.jpg">
   </p>
 </figure>
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img13.png">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img13.jpg">
   </p>
 </figure> 
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img14.png">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img14.jpg">
   </p>
 </figure> 
 
