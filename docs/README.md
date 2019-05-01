@@ -146,22 +146,22 @@ The loss progression was as follows:
 We also tested the model on other data that we found online to see how well it was able to generalize. Although the model is trained on a dataset containing 256x256 pixel images, it can be run on any image. However, we found that the best results would appear when the input line-art was scaled down to also be around the size of 256x256. Here are some examples of the output of the model before and after the scaling.
  <figure>
   <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/fail1.jpg">
+  </p>
+</figure> 
+ <figure>
+  <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale1.jpg">
   </p>
 </figure> 
  <figure>
   <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/fail2.jpg">
+  </p>
+</figure> 
+ <figure>
+  <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale2.jpg">
-  </p>
-</figure> 
- <figure>
-  <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale3.jpg">
-  </p>
-</figure> 
- <figure>
-  <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale4.jpg">
   </p>
 </figure> 
 
