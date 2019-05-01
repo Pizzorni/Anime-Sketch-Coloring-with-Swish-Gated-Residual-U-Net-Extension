@@ -16,7 +16,7 @@ However, you now have a trick up your sleeve. You can use deep learning to gain 
 ## Previous Works
 Before deciding on our approach, we conducted a general literature review of the state-of-the-art (Much to our surprise, there are quite a few publications on this topic). However. many of these approaches are based on GANs [1, 2], which typically take a long time to train and exhibit unstable effects once trained. Given the industrial nature of our problem, we opted to find a more stable approach with the thought of later extending to allow user interaction (A feature available with GANs).
 
-The approach we chose to pursue was:  “Anime Sketch Coloring with Swish-Gated Residual U-Net” [3] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
+The approach we chose to pursue was:  [“Anime Sketch Coloring with Swish-Gated Residual U-Net”] [3] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
 
 Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Paintschainer and Style2paints.
 
@@ -102,7 +102,7 @@ rated by the network):
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img8.png">
   </p>
 </figure> 
-As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an [implementation of] [4], where the loss is a weighted sum between the mean collection image loss and the min:
+As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an [implementation of][4], where the loss is a weighted sum between the mean collection image loss and the min:
 ~~~~
 # loss_sum is an array of shape [9, 1] containing the per-image loss
 loss_min = tf.reduce_sum(tf.reduce_min(loss_sum, reduction_indices=0))
