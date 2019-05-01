@@ -1,3 +1,7 @@
+---
+author: Alexander Koumis, Pradeep Lam, Amlesh Sivanantham, and Giorgio Pizzorni
+---
+
 # Anime Sketch Coloring with Swish Gated Residual U-Net
 
 ## Introduction/Background
