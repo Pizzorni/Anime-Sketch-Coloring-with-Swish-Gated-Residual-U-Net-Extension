@@ -2,6 +2,7 @@
 
 ## Introduction/Background
 Imagine this:
+
 Having been driven mad from optimizing hyperparameters, you've decided to quit pursuing machine learning and to devote the rest of your life to drawing Japanese-styled comics.
 
 The term they use in "industry" is manga. And those who draw manga are called "mangaka".
@@ -11,8 +12,14 @@ Chances are you move to Japan and start working as an apprentice for an establis
 
 However, you now have a trick up your sleeve. You can use deep learning to gain a competitive advantage that allows you to pump out much more content than your peers: automatic colorization.
 
+
 ## Previous Works
-We looked for an anime colorization approach to implement that is state-of-the-art which does not yet have a public implementation. Many approaches in this area are based on GANs [1, 2], which typically take a long time to train and exhibit unstable effects once trained. We found “Anime Sketch Coloring with Swish-Gated Residual U-Net” [3] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a U-Net network structure (SGRU) as well as a perceptual loss to generate several possible colorations for the same black and white image sketch. The paper showed many examples of their algorithm outperforming Paintschainer and Style2paints:
+Before deciding on our approach, we conducted a general literature review of the state-of-the-art (Much to our surprise, there are quite a few publications on this topic). However. many of these approaches are based on GANs [1, 2], which typically take a long time to train and exhibit unstable effects once trained. Given the industrial nature of our problem, we opted to find a more stable approach with the thought of later extending to allow user interaction (A feature available with GANs).
+
+The approach we chose to pursue was:  “Anime Sketch Coloring with Swish-Gated Residual U-Net” [3] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
+
+Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Paintschainer and Style2paints.
+
 
  <figure>
   <p align="center">
@@ -21,8 +28,6 @@ We looked for an anime colorization approach to implement that is state-of-the-a
   </p>
 </figure> 
 
-We set out to produce an open-source implementation of this paper and attempt to reproduce their results. Our implementation is on github and can be found [here](https://github.com/pradeeplam/Anime-Sketch-Coloring-with-Swish-Gated-Residual-UNet).
-
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img2.png">
@@ -30,9 +35,12 @@ We set out to produce an open-source implementation of this paper and attempt to
   </p>
 </figure> 
 
+Unfortunately for any tech-savvy mangaka, there was no public implementation available anywhere. Thus, we set out to produce an open-source implementation of this paper and attempt to reproduce their results.
 
 ## Network Architecture
-The model is based on an U-net architecture. Typically in image-to-image tasks, it is often necessary to encode the image and then apply some non-linear transformations to the encoding. Then, we decode the this result back to an image. This is done with deconvolutions, but images generated this way are often blurry because of loss of information in the encoding process. U-nets fix this by utilizing skip-layers that directly transfer feature maps from each encoder level to its symmetric decoder level (this also means that the resolution of those feature maps must be the same). An example of a U-net can be seen in the figure below (from [3]).
+Manga colorization is an image-to-image task. Typically, Image-to-image models utilize a series of convolutional layers to encode important information about the original image and then a series of deconvolutional(Or upconvolutional) layers to create the transformed image. However, this approach neglects global features in favor of local ones, and as a result, the transformed images are often blurry.
+
+This paper avoids this problem by using a U-Net-based architecture. U-nets include skip-layers which directly transfer feature maps from each encoder level to its symmetric decoder level, providing a “global” context for local features.
 
  <figure>
   <p align="center">
@@ -40,7 +48,7 @@ The model is based on an U-net architecture. Typically in image-to-image tasks, 
   </p>
 </figure> 
 
-This paper introduces a novel structure known as swish-gated residual blocks (SGB). These SGBs contain what are called as swish layers. If X is some input, the the swish layer is defined as S(X) = sigmoid(H(X))*X. The SGBs combine these swish layers alongside the typical residual blocks seen in U-nets. Specifically, our residuals layers are just two leaky ReLU convolutional layers with kernel size of 3 and number of filters equal to the number of channels in the input data. If the SGB is in the left branch of the U-net, then we max-pool (with kernel size of 2 and stride of 2) both the output of the swish-layer and the residuals and concatenate both of them together. If the SGB is in the right branch of the U-net, then we then upsample both the residuals and the output of the swish layer and concatenate them alongside the feature map from the skip connection. A figure explaining the SGB can be seen below.
+Improving upon the original U-Net architecture, this paper introduces novel structures known as swish-gated residual blocks (SGB). These SGBs contain what are called as swish layers. If X is some input, the the swish layer is defined as S(X) = sigmoid(H(X))*X. H(X) is a convolutional layer with kernel size 3. The SGBs combine these swish layers alongside the typical residual blocks seen in U-nets. Specifically, our residuals layers are just two leaky ReLU convolutional layers with kernel size of 3 and number of filters equal to the number of channels in the input data. If the SGB is in the left branch of the U-net, then we max-pool (with kernel size of 2 and stride of 2) both the output of the swish-layer and the residuals and concatenate both of them together. If the SGB is in the right branch of the U-net, then we then upsample both the residuals and the output of the swish layer and concatenate them alongside the feature map from the skip connection. A figure explaining the SGB can be seen below.
 
  <figure>
   <p align="center">
@@ -48,16 +56,13 @@ This paper introduces a novel structure known as swish-gated residual blocks (SG
   </p>
 </figure> 
 
-The Swish-Gated Residual U-net (SGRU) makes use of 10 SGBs. Five of these SGBs are strung together to make form the encoder part of the U-net while the other five form the decoder. We also add a 1x1 convolution between each SGB which serves to increase the size of the feature map during the encoding process but decrease the size while decoding. The skip connections of the U-net don’t just copy the feature maps to and from the symmetric encoder and decoder levels, instead, they are passed through a swish layer. While skip connections allow the network to have context when reconstructing the output image, the swish layers allow the network to filter information as its being passed through. Finally, the output of the last SGB goes through a couple convolutional layers before finally outputing a collection of images. The output of our model is a tensor with 27 channels. Our model is actually generating 9 RGB images, each with a different style. Our model outputs multiple different potential colored images as this is a one-to-many problem. The diagram below shows the full structure of the SGRU model. Each blue box represents the 4-dimensional tensor after each operation (colored arrows). The number above each blue box represents the number of channels in that tensor. The input to the model is a line-art image which only needs only has one channel. 
+The Swish-Gated Residual U-net (SGRU) makes use of 10 SGBs. Five of these SGBs are strung together to make form the encoder part of the U-net while the other five form the decoder. We also add a 1x1 convolution between each SGB which serves to increase the size of the feature map during the encoding process but decrease the size while decoding. The skip connections of the U-net don’t just copy the feature maps to and from the symmetric encoder and decoder levels, instead, they are passed through a swish layer. While skip connections allow the network to have context when reconstructing the output image, the swish layers allow the network to filter information as its being passed through. Finally, the output of the last SGB goes through a couple convolutional layers before finally outputting a collection of images. The output of our model is a tensor with 27 channels. Our model is actually generating 9 RGB images, each with a different style. Our model outputs multiple different potential colored images as this is a one-to-many problem. The diagram below shows the full structure of the SGRU model. Each blue box represents the 4-dimensional tensor after each operation (colored arrows). The number above each blue box represents the number of channels in that tensor. The input to the model is a line-art image which only needs only has one channel. 
 
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img5.png">
   </p>
 </figure> 
-
-We also used Tensorboard to debug our model. 
-
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img6.png">
@@ -81,23 +86,23 @@ Symbol meanings:
 * S<sup>l</sup>
 * &lambda;<sub>l</sub> = Weight for *l*th layer loss
 
-This is the summation of the “per-pixel loss” (when l = 0 and &phi;<sub>0</sub>(C) = C) and the “perceptual loss” (when l > 0 and &phi;<sub>1</sub>(C) = the 2nd activation from VGG’s lth convolutional layer). Incorporating the perceptual loss helps capture higher level features and multiplying each layer by the input grayscale image Sl forces the network to focus more on the non-line areas, as in a grayscale image, black (the color of the lines) is represented by 0’s and white by 255.
+This is the summation of the “per-pixel loss” (when l = 0 and &phi;<sub>0</sub>(C) = C) and the “perceptual loss” (when l > 0 and &phi;<sub>1</sub>(C) = the 2nd activation from VGG’s lth convolutional layer). Incorporating the perceptual loss helps capture higher level features and multiplying each layer by the input grayscale image S<sup>l</sup> forces the network to focus more on the non-line areas, as in a grayscale image, black (the color of the lines) is represented by 0’s and white by 255.
 
-As the network outputs a “collection” of 9 possible ways to color in the image, the minu operation minimizes loss for the best image in this collection.
+As the network outputs a “collection” of 9 possible ways to color in the image, the min<sub>u</sub> operation minimizes loss for the best image in this collection.
 
 ## The missing pieces
 There were several details not included in the paper that the paper authors clarified for us by email (thanks so much to Xin Chen!). 
 The biggest clarification was related to the loss: slowly incorporates losses from all images in the collection, not just the one with the minimum loss, as described above.
 
 When only minimizing the minimum loss image, we got results like this (first image is sketch, second is ground truth RGB image, the rest are generated by the network):
+rated by the network):
 
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img8.png">
   </p>
 </figure> 
-
-As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an implementation of [4], where the loss is a weighted sum between the mean collection image loss and the min:
+As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an [implementation of] [4], where the loss is a weighted sum between the mean collection image loss and the min:
 ~~~~
 # loss_sum is an array of shape [9, 1] containing the per-image loss
 loss_min = tf.reduce_sum(tf.reduce_min(loss_sum, reduction_indices=0))
@@ -112,15 +117,16 @@ We also encountered a strange situation where many of our images had a sepia-ton
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img9.png">
   </p>
 </figure> 
-We adjusted our loss function slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
+We [adjusted our loss function](https://github.com/pradeeplam/Anime-Sketch-Coloring-with-Swish-Gated-Residual-UNet/commit/9ac50c1d421bc675a76dcba69aa95da0547cce49) slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
 
 ## Training
-The images used for training were collected from the “Safebooru” online anime dataset which is a “safe” subset of the “Danbooro” dataset (Although, would still highly not recommend viewing in public). We initially ran these images through a cartoonization filter provided by OpenCV but noticed that the resulting images had less defined edges less than in the original paper.
-The authors were able to point us to the method they had used: Github.
+The images used for training were collected from the “Safebooru” online anime dataset which is a “safe” subset of the “Danbooro” dataset (while Safebooru is “safer” than Danbooru, it unfortunately is definitely still NSFW). We initially ran these images through a cartoonization filter provided by OpenCV but noticed that the resulting images had less defined edges less than in the original paper.
+The authors were able to point us to the [method they had used](https://github.com/lllyasviel/sketchKeras/).
 
 The network took roughly 2 days to train on a server with a 3 GHz Xeon Gold 6154 CPU and a Nvidia Titan XP GPU with 12GB of RAM.
 
 The loss progression was as follows:
+
 
  <figure>
   <p align="center">
@@ -131,22 +137,28 @@ The loss progression was as follows:
 ## Final result
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img12.jpg">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/final1.jpg">
   </p>
 </figure>
+We also tested the model on other data that we found online to see how well it was able to generalize. Although the model is trained on a dataset containing 256x256 pixel images, it can be run on any image. However, we found that the best results would appear when the input line-art was scaled down to also be around the size of 256x256. Here are some examples of the output of the model before and after the scaling.
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img13.jpg">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale1.jpg">
   </p>
 </figure> 
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img14.jpg">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale2.jpg">
   </p>
 </figure> 
  <figure>
   <p align="center">
-    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img15.jpg">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale3.jpg">
+  </p>
+</figure> 
+ <figure>
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/scale4.jpg">
   </p>
 </figure> 
 
@@ -162,3 +174,8 @@ We’ve made strides towards accomplishing this. We began by extracting and visu
 </figure> 
 
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
+
+[1]:
+[2]:
+[3]: https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers
+[4]: https://github.com/CQFIO/PhotographicImageSynthesis/
