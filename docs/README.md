@@ -102,7 +102,7 @@ rated by the network):
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img8.png">
   </p>
 </figure> 
-As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an <a href=https://github.com/CQFIO/PhotographicImageSynthesis/>implementation of</a>\[4\], where the loss is a weighted sum between the mean collection image loss and the min:
+As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an <a href=https://github.com/CQFIO/PhotographicImageSynthesis/>implementation of</a> \[4\] , where the loss is a weighted sum between the mean collection image loss and the min:
 
 ~~~~
 # loss_sum is an array of shape [9, 1] containing the per-image loss
