@@ -1,4 +1,4 @@
-# Anime Sketch Coloring with Swish Gated Residual U Net
+# Anime Sketch Coloring with Swish Gated Residual U-Net
 
 ## Introduction/Background
 Imagine this:
