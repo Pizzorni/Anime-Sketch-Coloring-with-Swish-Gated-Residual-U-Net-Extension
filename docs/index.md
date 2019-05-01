@@ -82,11 +82,11 @@ After passing the image through the U-Net, a loss is computed based on the “pe
 
 
 Symbol meanings:
-* T<sup>u</sup> = *u*th image in output collection
+* T<sup>u</sup> = *u*-th image in output collection
 * C = RGB ground truth image
-* &phi;<sup>j</sup> <sub>l</sub>
-* S<sup>l</sup>
-* &lambda;<sub>l</sub> = Weight for *l*th layer loss
+* &phi;<sup>j</sup> <sub>l</sub> = *j*-th feature map in *l*-th VGG 19 activation layer
+* S<sup>l</sup> = Input (grayscale) image mask downsampled to match resolution of &phi;<sub>l</sub>
+* &lambda;<sub>l</sub> = Weight for *l*-th layer loss
 
 This is the summation of the “per-pixel loss” (when l = 0 and &phi;<sub>0</sub>(C) = C) and the “perceptual loss” (when l > 0 and &phi;<sub>1</sub>(C) = the 2nd activation from VGG’s lth convolutional layer). Incorporating the perceptual loss helps capture higher level features and multiplying each layer by the input grayscale image S<sup>l</sup> forces the network to focus more on the non-line areas, as in a grayscale image, black (the color of the lines) is represented by 0’s and white by 255.
 
