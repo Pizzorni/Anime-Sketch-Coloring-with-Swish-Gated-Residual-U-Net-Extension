@@ -12,7 +12,6 @@ Chances are you move to Japan and start working as an apprentice for an establis
 
 However, you now have a trick up your sleeve. You can use deep learning to gain a competitive advantage that allows you to pump out much more content than your peers: automatic colorization.
 
-
 ## Previous Works
 Before deciding on our approach, we conducted a general literature review of the state-of-the-art (Much to our surprise, there are quite a few publications on this topic). However. many of these approaches are based on GANs [1, 2], which typically take a long time to train and exhibit unstable effects once trained. Given the industrial nature of our problem, we opted to find a more stable approach with the thought of later extending to allow user interaction (A feature available with GANs).
 
