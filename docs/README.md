@@ -180,9 +180,9 @@ We’ve made strides towards accomplishing this. We began by extracting and visu
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
 
 ## References
-1. <a href=https://github.com/lllyasviel/style2paints>Style2Paints</a>
-2. <a href=https://github.com/pfnet/PaintsChainer>Paintchainer</a>
-3. <a href=https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers>Anime Sketch Coloring with Swish-Gated Residual U-Net</a>
-4. <a href=https://github.com/CQFIO/PhotographicImageSynthesis/>Photographic Image Synthesis with Cascaded Refinement Networks</a>
+1. [Style2Paints](https://github.com/lllyasviel/style2paints)
+2. [Paintchainer](https://github.com/pfnet/PaintsChainer)
+3. [Anime Sketch Coloring with Swish-Gated Residual U-Net](https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers)
+4. [Photographic Image Synthesis with Cascaded Refinement Networks](https://github.com/CQFIO/PhotographicImageSynthesis/)
 
 
