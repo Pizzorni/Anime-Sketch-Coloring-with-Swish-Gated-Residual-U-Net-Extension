@@ -103,12 +103,14 @@ rated by the network):
   </p>
 </figure> 
 As can be seen in this image, only one image was improving at a notable rate. The authors noted they used a similar method as an [implementation of][4], where the loss is a weighted sum between the mean collection image loss and the min:
+
 ~~~~
 # loss_sum is an array of shape [9, 1] containing the per-image loss
 loss_min = tf.reduce_sum(tf.reduce_min(loss_sum, reduction_indices=0))
 loss_mean = tf.reduce_sum(tf.reduce_mean(loss_sum, reduction_indices=0))
 loss = loss_min * 0.999 + loss_mean * 0.001
 ~~~~
+
 We also encountered a strange situation where many of our images had a sepia-tone, water-color washed out feeling to them:
 
 
