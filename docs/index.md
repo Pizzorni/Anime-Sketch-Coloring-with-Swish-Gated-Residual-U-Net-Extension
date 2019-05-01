@@ -18,7 +18,7 @@ Before deciding on our approach, we conducted a general literature review of the
 
 The approach we chose to pursue was: [“Anime Sketch Coloring with Swish-Gated Residual U-Net”](https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers) \[3\] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
 
-Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Paintschainer and Style2paints.
+Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Style2paints [1] and Paintschainer [2].
 
  <figure>
   <p align="center">
@@ -44,6 +44,7 @@ This paper avoids this problem by using a U-Net-based architecture. U-nets inclu
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img3.png">
+    <br><i>U-Net architecture [3]</i>
   </p>
 </figure> 
 
@@ -60,11 +61,13 @@ The Swish-Gated Residual U-net (SGRU) makes use of 10 SGBs. Five of these SGBs a
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img5.png">
+    <br><i>SGRU architecture [3]</i>
   </p>
 </figure> 
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img6.png">
+    <br><i>Tensorboard graphic of model (used for debugging)</i>
   </p>
 </figure> 
 
@@ -179,9 +182,9 @@ We’ve made strides towards accomplishing this. We began by extracting and visu
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
 
 ## References
-1. [Style2Paints](https://github.com/lllyasviel/style2paints)
-2. [Paintchainer](https://github.com/pfnet/PaintsChainer)
-3. [Anime Sketch Coloring with Swish-Gated Residual U-Net](https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers)
-4. [Photographic Image Synthesis with Cascaded Refinement Networks](https://github.com/CQFIO/PhotographicImageSynthesis/)
+1. [Zhang, Lvmin, et al. "Style transfer for anime sketches with enhanced residual u-net and auxiliary classifier gan." 2017 4th IAPR Asian Conference on Pattern Recognition (ACPR). IEEE, 2017.](https://github.com/lllyasviel/style2paints)
+2. [Yonetsuji, T.: Paintschainer.](https://paintschainer.preferred.tech/index_en.html)
+3. [Liu, Gang, Xin Chen, and Yanzhong Hu. "Anime Sketch Coloring with Swish-Gated Residual U-Net." International Symposium on Intelligence Computation and Applications. Springer, Singapore, 2018.](https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers)
+4. [Chen, Qifeng, and Vladlen Koltun. "Photographic image synthesis with cascaded refinement networks." Proceedings of the IEEE International Conference on Computer Vision. 2017.](https://github.com/CQFIO/PhotographicImageSynthesis/)
 
 
