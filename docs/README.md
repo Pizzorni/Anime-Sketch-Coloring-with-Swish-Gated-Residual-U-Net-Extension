@@ -16,7 +16,7 @@ However, you now have a trick up your sleeve. You can use deep learning to gain 
 ## Previous Works
 Before deciding on our approach, we conducted a general literature review of the state-of-the-art (Much to our surprise, there are quite a few publications on this topic). However. many of these approaches are based on GANs [1, 2], which typically take a long time to train and exhibit unstable effects once trained. Given the industrial nature of our problem, we opted to find a more stable approach with the thought of later extending to allow user interaction (A feature available with GANs).
 
-The approach we chose to pursue was:  [“Anime Sketch Coloring with Swish-Gated Residual U-Net”][3] \[3\] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
+The approach we chose to pursue was: <a href=https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers>“Anime Sketch Coloring with Swish-Gated Residual U-Net”</a> \[3\] by Gang Liu, Xin Chen, and Yanzhong Hu, published in December 2018, which utilizes a novel U-Net-based network structure (SGRU) and perceptual loss to generate several possible colorations for the same black and white sketch.
 
 Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Paintschainer and Style2paints.
 
@@ -178,7 +178,8 @@ We’ve made strides towards accomplishing this. We began by extracting and visu
 
 We decided that we didn't need to understand, as long as it worked. So we took an image, fed it through the network, manually modified the output, and back propagated with a higher learning rate. Our goal was to learn which filters at what levels were responsible for different features. Given an image and its output, we manually re-colored the hair of all the outputs to a solid color, fed it back in, and kept track of how many of the filters changed and how they changed. Due to the skip connections inherent in the network and the large number of filters, the answer is a lot of filters changed, and in very different ways numerically. Visually, we couldn't see the difference. It was hard to draw any sort of meaningful conclusion from the raw numerical data, so we instead experimented with changing filters by hand and seeing what happened. This approach taught us a valuable lesson, trying to arbitrarily modify learned parameters in a network leads to horrible outputs with a high confidence rate.
 
-[1]:
-[2]:
-[3]: https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers
-[4]: https://github.com/CQFIO/PhotographicImageSynthesis/
+## References
+1. Style2paints
+2. Paintschainer
+3. <a href=https://www.researchgate.net/publication/330938704_Anime_Sketch_Coloring_with_Swish-Gated_Residual_U-Net_10th_International_Symposium_ISICA_2018_Jiujiang_China_October_13-14_2018_Revised_Selected_Papers>Anime Sketch Coloring with Swish-Gated Residual U-Net</a>
+4. Photographic Image Synthesis with Cascaded Refinement Networks
