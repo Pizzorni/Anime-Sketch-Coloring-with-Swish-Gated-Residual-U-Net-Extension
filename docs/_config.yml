@@ -1,11 +1,3 @@
 title: Anime Sketch Coloring with Swish Gated Residual U-Nets + Extension
 theme: jekyll-theme-cayman
-authors:
-  alex:
-    name: Hanzou Hattori
-  pradeep:
-    name: Jörgen Mortensen
-  amlesh:
-    name: Amlesh Sivanantham
-  giorgio:
-    name: Giorgio Pizzorni
+author: Alexander Koumis, Pradeep Lam, Amlesh Sivanantham, and Giorgio Pizzorni
