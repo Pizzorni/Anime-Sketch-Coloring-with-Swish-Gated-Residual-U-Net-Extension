@@ -19,7 +19,6 @@ The approach we chose to pursue was: [“Anime Sketch Coloring with Swish-Gated 
 
 Qualitatively, this method vastly outperforms other state-of-the art colorizers such as Paintschainer and Style2paints.
 
-
  <figure>
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img1.png">
