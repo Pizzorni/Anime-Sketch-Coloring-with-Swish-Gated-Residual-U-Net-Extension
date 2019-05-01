@@ -118,8 +118,9 @@ We also encountered a strange situation where many of our images had a sepia-ton
   <p align="center">
     <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img9.png">
   </p>
-</figure> 
-We [adjusted our loss function](https://github.com/pradeeplam/Anime-Sketch-Coloring-with-Swish-Gated-Residual-UNet/commit/9ac50c1d421bc675a76dcba69aa95da0547cce49)slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
+</figure>
+
+We [adjusted our loss function](https://github.com/pradeeplam/Anime-Sketch-Coloring-with-Swish-Gated-Residual-UNet/commit/9ac50c1d421bc675a76dcba69aa95da0547cce49) slightly to take the mean along the image difference channel axis, followed by calculating the mean along the row and column dimensions, rather than simply calculating the sum along the row, column and channel axis. This fixed the issue.
 
 ## Training
 The images used for training were collected from the “Safebooru” online anime dataset which is a “safe” subset of the “Danbooro” dataset (while Safebooru is “safer” than Danbooru, it unfortunately is definitely still NSFW). We initially ran these images through a cartoonization filter provided by OpenCV but noticed that the resulting images had less defined edges less than in the original paper.
