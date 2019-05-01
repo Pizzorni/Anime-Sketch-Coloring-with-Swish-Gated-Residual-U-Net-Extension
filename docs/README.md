@@ -129,8 +129,21 @@ The loss progression was as follows:
 </figure> 
 
 ## Final result
-Compare our final results with some of the worse GAN results
-Talk about clean-cut-edges and vibrantness
+ <figure>
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img12.png">
+  </p>
+</figure>
+ <figure>
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img13.png">
+  </p>
+</figure> 
+ <figure>
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/Pizzorni/Anime-Sketch-Coloring-with-Swish-Gated-Residual-U-Net-Extension/master/BlogImg/img14.png">
+  </p>
+</figure> 
 
 ## Extension
 Dealing with users is almost always the biggest challenge a project faces. Our target demographic includes mangaka and Manga/Anime enthusiasts, some of the most demanding and particular individuals. We decided it would be wise to allow the user some control over how the images get colored. Our intent was to allow for some interactive coloring after the initial automatic coloring, while still utilizing our network.
